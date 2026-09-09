@@ -1,0 +1,29 @@
+# version-sync.yml — 只读版本一致性检查（方案 6.14 / 3.7，借鉴 reolink-cli）
+#
+# 对照「仓库内版本 vs 已发布 release 版本」，防人工同步漂移（reolink-cli
+# 曾失败 3 次）。**只读**：只查 GitHub API + 读本地文件，从不写仓库、
+# 从不构建、从不发布。
+name: version-sync
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  release:
+    types: [published, edited]
+  schedule:
+    # 每天 03:17（避开整点，降低并发峰值）
+    - cron: "17 3 * * *"
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Check version sync
+        run: sh scripts/check-version-sync.sh
