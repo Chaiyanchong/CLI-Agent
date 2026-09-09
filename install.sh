@@ -3,7 +3,7 @@
 #
 # 流程：平台检测 -> 版本解析 -> 下载归档 -> 从【默认分支】取 sha256 ->
 #       fail-closed 校验 -> 装用户前缀（整目录替换，不碰用户数据）->
-#       写启动器 -> PATH 缺则补 -> 打印 EULA 摘要 + 下一步。
+#       写启动器 -> PATH 缺则补 -> 打印下一步。
 #
 # 一行命令（照搬 reolink-cli 模式；测试期仓库 Chaiyanchong/CLI-Agent）：
 #   curl -fsSL https://raw.githubusercontent.com/Chaiyanchong/CLI-Agent/main/install.sh | sh
@@ -110,12 +110,11 @@ case ":$PATH:" in
     ;;
 esac
 
-# 9. EULA 摘要 + 下一步
+# 9. 下一步
 echo ""
 echo "=========================================="
 echo " cli-agent $VERSION 已安装"
 echo "=========================================="
-echo " 安装即表示你接受 EULA（详见 $PREFIX/EULA.txt 与公开仓库 EULA.txt）。"
 echo " 下一步："
 echo "   1. 复制配置: cp $PREFIX/config/bot_config.example.json $PREFIX/config/bot_config.json"
 echo "   2. 设置环境变量: DISCORD_BOT_TOKEN（及所选模型的 API key，见 .env.example）"

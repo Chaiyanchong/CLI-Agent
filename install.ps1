@@ -2,7 +2,7 @@
 #
 # 流程：平台检测 -> 版本解析 -> 下载归档 -> 从【默认分支】取 sha256 ->
 #       fail-closed 校验 -> 停同前缀运行实例 -> 装用户前缀（整目录替换，
-#       不碰用户数据）-> 写启动器 -> PATH 缺则补 -> 打印 EULA 摘要 + 下一步。
+#       不碰用户数据）-> 写启动器 -> PATH 缺则补 -> 打印下一步。
 #
 # 一行命令（cmd 与 PowerShell 均可直接粘贴；测试期仓库 Chaiyanchong/CLI-Agent）：
 #   powershell -NoProfile -Command "iwr https://raw.githubusercontent.com/Chaiyanchong/CLI-Agent/main/install.ps1 -UseBasicParsing | iex"
@@ -126,12 +126,11 @@ if (($userPath -split ';') -notcontains $BIN_DIR) {
     Write-Host "[install] 已把 $BIN_DIR 加入用户 PATH（新终端生效）"
 }
 
-# 10. EULA 摘要 + 下一步
+# 10. 下一步
 Write-Host ""
 Write-Host "=========================================="
 Write-Host " cli-agent $VERSION 已安装"
 Write-Host "=========================================="
-Write-Host " 安装即表示你接受 EULA（详见 $PREFIX\EULA.txt 与公开仓库 EULA.txt）。"
 Write-Host " 下一步："
 Write-Host "   1. 复制配置: copy $PREFIX\config\bot_config.example.json $PREFIX\config\bot_config.json"
 Write-Host "   2. 设置环境变量: DISCORD_BOT_TOKEN（及所选模型的 API key，见 .env.example）"
